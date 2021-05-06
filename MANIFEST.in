@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include expensify_integration *.css
+recursive-include expensify_integration *.csv
+recursive-include expensify_integration *.html
+recursive-include expensify_integration *.ico
+recursive-include expensify_integration *.js
+recursive-include expensify_integration *.json
+recursive-include expensify_integration *.md
+recursive-include expensify_integration *.png
+recursive-include expensify_integration *.py
+recursive-include expensify_integration *.svg
+recursive-include expensify_integration *.txt
+recursive-exclude expensify_integration *.pyc
