@@ -23,6 +23,12 @@ Login into the frappe site.
 
 Insert screenshots, to be continued
 
+### Further development hints
+
+```sh
+bench --site site1.local set-config  --global developer_mode 1
+```
+
 ## License
 
 MIT
