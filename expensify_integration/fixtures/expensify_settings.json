@@ -1,10 +1,10 @@
 [
  {
-  "apikey": null,
-  "apisecret": null,
+  "apikey": "asfd",
+  "apisecret": "*****",
   "docstatus": 0,
   "doctype": "Expensify settings",
-  "modified": null,
+  "modified": "2021-05-10 14:33:05.747383",
   "name": "Expensify settings",
   "parent": null,
   "parentfield": null,
