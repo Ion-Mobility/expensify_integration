@@ -11,12 +11,8 @@ app_color = "grey"
 app_email = "uriel@ionmobility.asia"
 app_license = "MIT"
 
-# Includes in <head>
-# ------------------
+fixtures = ['Expensify settings']
 
-# include js, css files in header of desk.html
-# app_include_css = "/assets/expensify_integration/css/expensify_integration.css"
-# app_include_js = "/assets/expensify_integration/js/expensify_integration.js"
 
 # include js, css files in header of web template
 # web_include_css = "/assets/expensify_integration/css/expensify_integration.css"
