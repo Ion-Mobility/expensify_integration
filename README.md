@@ -4,7 +4,9 @@ Integrate Expensify to ERPNext
 
 ### Pre-requisites
 
-Frappe, bench and ERPNext is installed and setup-ed.
+You have installed and setup Frappe, Bench and ERPNext.
+
+Easiest way to setup is to use virtualbox and the production image. 
 https://erpnext.org/download
 
 ## Get started
@@ -23,11 +25,14 @@ Login into the frappe site.
 
 Insert screenshots, to be continued
 
-### Further development hints
+### Hints for development
 
+Use developer mode so that the doctype can be automatically generated and saved.
 ```sh
 bench --site site1.local set-config  --global developer_mode 1
 ```
+Ensure the 'Custom?' option is switched off when modifying DocTypes. 
+
 
 ## License
 
