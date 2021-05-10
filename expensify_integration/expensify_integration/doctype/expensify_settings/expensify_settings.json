@@ -1,5 +1,6 @@
 {
  "creation": "2021-05-10 15:52:50.848569",
+ "description": "Set up your api keys with https://www.expensify.com/tools/integrations/",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
@@ -15,12 +16,12 @@
   },
   {
    "fieldname": "secret",
-   "fieldtype": "Password",
+   "fieldtype": "Data",
    "label": "Secret"
   }
  ],
  "issingle": 1,
- "modified": "2021-05-10 15:56:56.773412",
+ "modified": "2021-05-10 17:40:16.439868",
  "modified_by": "Administrator",
  "module": "Expensify Integration",
  "name": "Expensify Settings",
