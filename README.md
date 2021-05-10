@@ -2,15 +2,16 @@
 
 Integrate Expensify to ERPNext
 
-## Get started
+### Pre-requisites
 
-Install frappe bench and erpnext. 
+Frappe, bench and ERPNext is installed and setup-ed.
 https://erpnext.org/download
+
+## Get started
 
 Use these commands to install the integration using bench.
 
 ```sh
-cd frappe-bench
 bench get-app https://github.com/Ion-Mobility-Infra/expensify_integration.git
 bench --site site1.local install-app expensify_integration
 
