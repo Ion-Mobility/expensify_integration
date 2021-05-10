@@ -11,7 +11,7 @@ app_color = "grey"
 app_email = "uriel@ionmobility.asia"
 app_license = "MIT"
 
-fixtures = ["Expensify settings", "Expensify integration" ]
+fixtures = ["Expensify settings", "Expensify API settings"]
 
 
 # include js, css files in header of web template
