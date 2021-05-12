@@ -5,6 +5,8 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "expense_approver",
+  "payable_account",
   "apikey",
   "secret"
  ],
@@ -12,16 +14,32 @@
   {
    "fieldname": "apikey",
    "fieldtype": "Data",
-   "label": "API Key"
+   "in_list_view": 1,
+   "label": "API Key",
+   "reqd": 1
   },
   {
    "fieldname": "secret",
    "fieldtype": "Data",
-   "label": "Secret"
+   "in_list_view": 1,
+   "label": "Secret",
+   "reqd": 1
+  },
+  {
+   "fieldname": "expense_approver",
+   "fieldtype": "Link",
+   "label": "Default Expense Approver",
+   "options": "User"
+  },
+  {
+   "fieldname": "payable_account",
+   "fieldtype": "Link",
+   "label": "Default Payable Account",
+   "options": "Account"
   }
  ],
  "issingle": 1,
- "modified": "2021-05-10 17:40:16.439868",
+ "modified": "2021-05-12 15:58:09.697268",
  "modified_by": "Administrator",
  "module": "Expensify Integration",
  "name": "Expensify Settings",
