@@ -27,12 +27,18 @@ Insert screenshots, to be continued
 
 ### Hints for development
 
+# Developer mode
 Use developer mode so that the doctype can be automatically generated and saved.
 ```sh
 bench --site site1.local set-config  --global developer_mode 1
 ```
 Ensure the 'Custom?' option is switched off when modifying DocTypes. 
 
+# Enable cron jobs for ERPNext
+```sh
+bench --site site1.local scheduler enable
+bench --site site1.local scheduler resume
+```
 
 ## License
 
