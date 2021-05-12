@@ -23,7 +23,7 @@ bench --site site1.local install-app expensify_integration
 
 Login into the frappe site. 
 
-Insert screenshots, to be continued
+<img width="911" alt="screenshot_expensify_integration" src="https://user-images.githubusercontent.com/9346641/117952869-297ce400-b348-11eb-882f-041d5c7f3c9b.png">
 
 ### Hints for development
 
