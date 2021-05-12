@@ -8,12 +8,21 @@ import json
 # api/method/expensify_integration.expensify_integration.expensify_integration.handle_sample_expense
 
 # LOGIC TO INTERACT WITH FRAPPE
-
 def get_employee(full_name):
     employee_doc = frappe.get_doc(doctype="Employee", employee_name = full_name)
-    return employee_doc.name
+    employee_id_list = frappe.db.get_list('Employee', 
+        filters = {
+            "employee_name":full_name
+        }
+    )
+    print("Retrieving Employee with name")
+    print(full_name)
+    print("Employee list")
+    print(employee_id_list)
+    employee_id = employee_id_list[0] if employee_id_list else ""
+    return employee_id["name"]
 
-def get_payable_account(expense_type):
+def get_payable_account():
     return frappe.db.get_single_value("Expensify Settings", "payable_account") 
 
 def get_expense_approver():
@@ -33,14 +42,14 @@ def get_expense_list(report):
         expenses.append(expense)
     return expenses
 
-@frappe.whitelist(allow_guest=True)
-def handle_sample_expense(**kwargs):
+# MOST IMPORTANT METHOD
+def handle_expenses(**kwargs):
 
     # RETRIEVE API KEYS
-
-    APIKEY = frappe.db.get_single_value("Expensify Settings", "apikey")
-    SECRET = frappe.db.get_single_value("Expensify Settings", "secret")
-
+    credentials = { 
+        "partnerUserID":frappe.db.get_single_value("Expensify Settings", "apikey"), 
+        "partnerUserSecret":frappe.db.get_single_value("Expensify Settings", "secret") 
+    }
 
     # DECLARE VARIABLES      
 
@@ -67,12 +76,6 @@ def handle_sample_expense(**kwargs):
 
     url = 'https://integrations.expensify.com/Integration-Server/ExpensifyIntegrations'
 
-    # Generate your credentials here: https:#www.expensify.com/tools/integrations/
-    credentials = { 
-        "partnerUserID":APIKEY, 
-        "partnerUserSecret":SECRET 
-    }
-
     jobDescriptionExport = { 
         "type":"file", 
         "credentials": credentials, 
@@ -82,13 +85,12 @@ def handle_sample_expense(**kwargs):
             "type":"combinedReportData", 
             "filters":{
                 "startDate":"2019-01-01",
-                "markedAsExported":"Exported4"
+                "markedAsExported":"Exported8"
             }
         }, 
         "outputSettings":{ "fileExtension":"json" },
         "onFinish":[
-            {"actionName":"markAsExported","label":"Exported3"}
-          # {"actionName":"email","recipients":"manager@domain.com,finances@domain.com", "message":"Report is ready."}
+            {"actionName":"markAsExported","label":"Exported8"}
         ]
     }
 
@@ -99,13 +101,12 @@ def handle_sample_expense(**kwargs):
         "fileSystem":"integrationServer"
     }
 
+    # SEND REQUEST TO EXPENSIFY 
+    
     data = {
         'requestJobDescription': str(jobDescriptionExport), 
         'template' : template_string
     }
-
-    # SEND REQUEST TO EXPENSIFY 
-
     response = requests.post(url, data=data)
 
     if response.status_code == 200:
@@ -120,22 +121,15 @@ def handle_sample_expense(**kwargs):
 
         # EXTRACT, TRANSFORM, LOAD
 
-        print("REPORTS:")
         for report in reports:
-            print(json.dumps(report))
-            print()
-            
-            expense_list = get_expense_list(report)
-
             claim = frappe.get_doc({
                 "doctype":"Expense Claim",
                 "title":report["title"],
                 "expense_approver":get_expense_approver(),
                 "employee":get_employee(report["employee_name"]),
-                "payable_account":get_payable_account(""),
-                "expenses":expense_list
+                "payable_account":get_payable_account(),
+                "expenses":get_expense_list(report)
             })
-            #claim.flags.ignore_mandatory = True
             claim.save()
             frappe.db.commit()
 

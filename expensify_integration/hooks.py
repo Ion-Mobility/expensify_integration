@@ -11,7 +11,13 @@ app_color = "grey"
 app_email = "uriel@ionmobility.asia"
 app_license = "MIT"
 
-
+scheduler_events = {
+    "cron": {
+        "* * * * *": [
+            "expensify_integration.expensify_integration.expensify_integration.handle_expenses"
+        ]
+    }
+}
 
 # include js, css files in header of web template
 # web_include_css = "/assets/expensify_integration/css/expensify_integration.css"
