@@ -42,6 +42,11 @@ bench --site site1.local scheduler enable
 bench --site site1.local scheduler resume
 ```
 
+#### Re-install app
+If settings don't seem to change while developing Frappe apps, you can try to re-install the app again 
+```sh 
+bench install-app expensify_integration
+```
 ## License
 
 MIT
