@@ -11,19 +11,18 @@ https://erpnext.org/download
 
 ## Get started
 
-Use these commands to install the integration using bench.
+1. Use these commands to install the integration using bench.
 
 ```sh
 bench get-app https://github.com/Ion-Mobility-Infra/expensify_integration.git
 bench --site site1.local install-app expensify_integration
-
 ```
-
-### Frappe setup
-
-Login into the frappe site. 
-Add API key, API secret from https://www.expensify.com/tools/integrations/
-Add in your default expense approver and default account
+2. Login into the frappe site.
+3. Ensure your employees are set up such that their full name in Expensify and ERPNext are the same.
+4. Set up expense claims accounts inside ERPNext so that they match Expensify's categories exactly.
+![ERPNext categories](https://user-images.githubusercontent.com/9346641/117965882-de69cd80-b355-11eb-9163-a9a6eef67591.png)
+5. Add API key, API secret from https://www.expensify.com/tools/integrations/
+6. Add in your default expense approver and default account
 
 <img width="911" alt="screenshot_expensify_integration" src="https://user-images.githubusercontent.com/9346641/117952869-297ce400-b348-11eb-882f-041d5c7f3c9b.png">
 
