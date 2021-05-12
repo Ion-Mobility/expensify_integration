@@ -22,6 +22,8 @@ bench --site site1.local install-app expensify_integration
 ### Frappe setup
 
 Login into the frappe site. 
+Add API key, API secret from https://www.expensify.com/tools/integrations/
+Add in your default expense approver and default account
 
 <img width="911" alt="screenshot_expensify_integration" src="https://user-images.githubusercontent.com/9346641/117952869-297ce400-b348-11eb-882f-041d5c7f3c9b.png">
 
