@@ -18,12 +18,12 @@ jobs:
     steps:
       # First step is always to checkout
       - checkout
-      - setup_remote_docker
+      - setup_remote_docker:
+          docker_layer_caching: true
       - run:
           name: Setup ion_erpnext
           command: |
-            docker-compose -env .circleci/env-custom -f .circleci/docker-compose.yml --project-name ion up -d 
-            docker logs ion_site-creator_1 -f 
+            docker-compose -env .circleci/env-custom -f .circleci/docker-compose.yml --project-name ion up -d && docker logs ion_site-creator_1 -f 
       - run: 
           name: Populate test data
           command: |
