@@ -25,7 +25,7 @@ jobs:
           command: docker-compose -env .circleci/env-custom -f .circleci/docker-compose.yml --project-name ion up -d 
       - run:
           name: Wait for db
-          command: dockerize -wait tcp://localhost:5432 -timeout 10m
+          command: dockerize -wait tcp://localhost:3306 -timeout 10m
       - run:
           name: Wait for db
           command: docker logs ion_site-creator_1 -f 
