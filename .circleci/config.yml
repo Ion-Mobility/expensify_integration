@@ -28,7 +28,7 @@ jobs:
           command: dockerize -wait tcp://localhost:5432 -timeout 10m
       - run:
           name: Wait for db
-            docker logs ion_site-creator_1 -f 
+          commnad: docker logs ion_site-creator_1 -f 
       - run: 
           name: Populate test data
           command: |
