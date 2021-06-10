@@ -2,9 +2,16 @@
 # Copyright (c) 2021, Ion and Contributors
 # See license.txt
 from __future__ import unicode_literals
-
-# import frappe
+import frappe
 import unittest
+import expensify_integration
 
 class TestExpensifySettings(unittest.TestCase):
-	pass
+	def setUp(self):
+		pass
+
+	def tearDown(self):
+		pass
+
+	def testApiCall(self):
+		pass
