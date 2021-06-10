@@ -22,7 +22,7 @@ jobs:
       - run:
           name: Setup ion_erpnext
           command: |
-            docker-compose -env .circleci/env-example -f .circleci/docker-compose.yml --project-name ion up -d 
+            docker-compose -env .circleci/env-custom -f .circleci/docker-compose.yml --project-name ion up -d 
             docker logs ion_site-creator_1 -f 
       - run: 
           name: Populate test data
