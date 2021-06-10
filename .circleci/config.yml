@@ -22,8 +22,13 @@ jobs:
         #  docker_layer_caching: true
       - run:
           name: Setup ion_erpnext
-          command: |
-            docker-compose -env .circleci/env-custom -f .circleci/docker-compose.yml --project-name ion up -d && docker logs ion_site-creator_1 -f 
+          command: docker-compose -env .circleci/env-custom -f .circleci/docker-compose.yml --project-name ion up -d 
+      - run:
+          name: Wait for db
+          command: dockerize -wait tcp://localhost:5432 -timeout 10m
+      - run:
+          name: Wait for db
+            docker logs ion_site-creator_1 -f 
       - run: 
           name: Populate test data
           command: |
