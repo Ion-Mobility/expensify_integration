@@ -5,6 +5,9 @@ from __future__ import unicode_literals
 import frappe
 import unittest
 import expensify_integration
+import requests
+import urllib
+import json
 		
 def request_report():
 	# RETRIEVE API KEYS

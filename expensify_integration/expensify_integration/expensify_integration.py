@@ -1,7 +1,6 @@
 import frappe
 import requests
 from frappe import _
-import requests
 import urllib
 import json
 
