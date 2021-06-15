@@ -69,7 +69,7 @@ def request_report():
     return response
 
 
-class TestEvent(unittest.TestCase):
+class TestExpensifyIntegration(unittest.TestCase):
     def setUp(self):
         pass
         create_events()
@@ -77,6 +77,9 @@ class TestEvent(unittest.TestCase):
     def tearDown(self):
         pass
         frappe.set_user("Administrator")
+
+    def test_simple_test(self):
+        self.assertTrue(200 == 200)
 
     def test_expensify_connection(self):
         report = request_report
