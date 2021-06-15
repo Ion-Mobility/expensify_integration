@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/Ion-Mobility-Infra/expensify_integration/tree/main.svg?style=svg)](https://circleci.com/gh/Ion-Mobility-Infra/expensify_integration/tree/main)
+
 ## Expensify Integration
 
 Integrate Expensify to ERPNext
