@@ -1,46 +1,83 @@
 import frappe
 import unittest
 
-def create_events():
-    if frappe.flags.test_events_created:
-        return
+def request_report():
+    # RETRIEVE API KEYS
+    credentials = { 
+        "partnerUserID":frappe.db.get_single_value("Expensify Settings", "apikey"), 
+        "partnerUserSecret":frappe.db.get_single_value("Expensify Settings", "secret") 
+    }
 
-    frappe.set_user("Administrator")
-    doc = frappe.get_doc({
-        "doctype": "Event",
-        "subject":"_Test Event 1",
-        "starts_on": "2014-01-01",
-        "event_type": "Public"
-    }).insert()
+    # DECLARE VARIABLES      
 
-    doc = frappe.get_doc({
-        "doctype": "Event",
-        "subject":"_Test Event 3",
-        "starts_on": "2014-01-01",
-        "event_type": "Public"
-        "event_individuals": [{
-            "person": "test1@example.com"
-        }]
-    }).insert()
+    template_string = """
+    [<#lt>
+    <#list reports as report>
+        {<#lt>
+            "title":"${report.reportName}",<#lt>
+            "employee_name":"${report.submitter.fullName}",<#lt>
+            "expense_approver":"${report.managerEmail}",<#lt>
+            "posting_date":"${report.submitted}",<#lt>
+            "expenses":[<#lt>
+            <#list report.transactionList as expense>
+                {<#lt>
+                    "amount":"${expense.amount}",<#lt>
+                    "expense_type":"${expense.category}",<#lt>
+                    "description":"${expense.comment}",<#lt>
+                    "expense_date":"${expense.created}"<#lt>
+                }<#sep>,</#sep><#lt>
+            </#list>]<#lt>
+        }<#sep>,</#sep><#lt>
+    </#list>]
+    """
 
-    frappe.flags.test_events_created = True
+    url = 'https://integrations.expensify.com/Integration-Server/ExpensifyIntegrations'
+
+    jobDescriptionExport = { 
+        "type":"file", 
+        "credentials": credentials, 
+        "onReceive":{ "immediateResponse":["returnRandomFileName"] }, 
+        "limit":"3",
+        "inputSettings":{ 
+            "type":"combinedReportData", 
+            "filters":{
+                "startDate":"2019-01-01",
+                "markedAsExported":"Exported8"
+            }
+        }, 
+        "outputSettings":{ "fileExtension":"json" },
+        "onFinish":[
+            {"actionName":"markAsExported","label":"Exported8"}
+        ]
+    }
+
+    jobDescriptionDownload = {
+        "type":"download",
+        "credentials": credentials,
+        "fileName":"_INSERT_FILE_NAME_",
+        "fileSystem":"integrationServer"
+    }
+
+    # SEND REQUEST TO EXPENSIFY 
+    
+    data = {
+        'requestJobDescription': str(jobDescriptionExport), 
+        'template' : template_string
+    }
+    response = requests.post(url, data=data)
+
+    return response
 
 
 class TestEvent(unittest.TestCase):
     def setUp(self):
+        pass
         create_events()
 
     def tearDown(self):
+        pass
         frappe.set_user("Administrator")
 
-    def test_allowed_public(self):
-        frappe.set_user("test1@example.com")
-        doc = frappe.get_doc("Event", frappe.db.get_value("Event",
-            {"subject":"_Test Event 1"}))
-        self.assertTrue(frappe.has_permission("Event", doc=doc))
-
-    def test_not_allowed_private(self):
-        frappe.set_user("test1@example.com")
-        doc = frappe.get_doc("Event", frappe.db.get_value("Event",
-            {"subject":"_Test Event 2"}))
-        self.assertFalse(frappe.has_permission("Event", doc=doc))
+    def test_expensify_connection(self):
+        report = request_report
+        self.assertTrue(report.status_code == 200)
