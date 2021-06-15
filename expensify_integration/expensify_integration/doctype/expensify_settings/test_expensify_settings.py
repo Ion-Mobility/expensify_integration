@@ -84,7 +84,7 @@ class TestExpensifySettings(unittest.TestCase):
 		self.assertTrue(200 == 200)
 
 	def test_expensify_connection(self):
-		report = request_report
+		report = request_report()
 		self.assertTrue(report.status_code == 200)
 
 
