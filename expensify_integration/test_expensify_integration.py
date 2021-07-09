@@ -81,6 +81,11 @@ class TestExpensifyIntegration(unittest.TestCase):
     def test_simple_test(self):
         self.assertTrue(200 == 200)
 
-    def test_expensify_connection(self):
+    def test_credentials(self):
         report = request_report
         self.assertTrue(report.status_code == 200)
+
+    def test_payable_account(self):
+        self.assertTrue("Ion Expenses General" == frappe.db.get_single_value("Expensify Settings", "payable_account"))
+    def test_expense_approver(self):
+        self.assertTrue("uriel@example.com" == frappe.db.get_single_value("Expensify Settings", "expense_approver"))
